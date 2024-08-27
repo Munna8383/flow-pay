@@ -4,7 +4,6 @@ import {
 import Welcome from "../pages/Welcome/Welcome";
 import Error from "../pages/Error/Error";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import Private from "./Private";
 import AcceptRequest from "../pages/Dashboard/Admin/AcceptRequest";
 import TransactionList from "../pages/Dashboard/Admin/TransactionList";
 import SendMoney from "../pages/Dashboard/User/SendMoney";
@@ -38,33 +37,33 @@ export const router = createBrowserRouter([
         },
         {
           path:"acceptRequest",
-          element:<Private><AcceptRequest></AcceptRequest></Private>
+          element:<AcceptRequest></AcceptRequest>
           
         },
         {
           path:"transactionList",
-          element:<Private><TransactionList></TransactionList></Private>
+          element:<TransactionList></TransactionList>
         },
         // user route
         {
           path:"sendMoney",
-          element:<Private><SendMoney></SendMoney></Private>
+          element:<SendMoney></SendMoney>
         },
         {
           path:"cashOut",
-          element:<Private><CashOut></CashOut></Private>
+          element:<CashOut></CashOut>
         },
         {
           path:"cashIn",
-          element:<Private><CashIn></CashIn></Private>
+          element:<CashIn></CashIn>
         },
         {
           path:"transaction",
-          element:<Private><TransactionUser></TransactionUser></Private>
+          element:<TransactionUser></TransactionUser>
         },
         {
           path:"balance",
-          element:<Private><Balance></Balance></Private>
+          element:<Balance></Balance>
         },
         // agent Router
 

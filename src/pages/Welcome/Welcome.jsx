@@ -13,6 +13,9 @@ const Welcome = () => {
   const axiosPublic = useAxiosPublic()
 
 
+
+
+
   const submitRegister = (e)=>{
 
     e.preventDefault()
@@ -59,7 +62,17 @@ const Welcome = () => {
     .then(res=>{
       if(res.data.message=="matched"){
         localStorage.setItem("email",emailOrPhone)
-        navigate("/dashboard")
+
+        const userInfo = {email:localStorage.getItem("email")}
+
+        axiosPublic.post("/jwt",userInfo)
+        .then(res=>{
+          if(res.data.token){
+            localStorage.setItem("access-token",res.data.token)
+            navigate("/dashboard")
+          }
+        })
+       
       }else{
         toast.error("incorrect username or password")
       }
@@ -81,7 +94,7 @@ const Welcome = () => {
             <div className="sm:flex">
               <Toaster></Toaster>
 
-                <div className="w-full sm:w-5/12 min-h-screen bg-teal-700">
+                <div className="w-full md:w-6/12 lg:w-5/12 min-h-screen bg-teal-700">
 
                     <div className="flex justify-center gap-2 items-center pt-5 text-white">
                         <div >
@@ -177,7 +190,7 @@ const Welcome = () => {
                 </div>
 
 
-                <div className="hidden sm:block  sm:w-7/12 h-screen">
+                <div className="hidden md:block  sm:w-6/12 lg:w-7/12 h-screen">
 
                     <img className="h-full w-full" src={banner} />
 

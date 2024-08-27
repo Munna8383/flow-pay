@@ -10,8 +10,12 @@ import TransactionList from "../pages/Dashboard/Admin/TransactionList";
 import SendMoney from "../pages/Dashboard/User/SendMoney";
 import CashOut from "../pages/Dashboard/User/CashOut";
 import CashIn from "../pages/Dashboard/User/CashIn";
-import Transaction from "../pages/Dashboard/User/Transaction";
 import Balance from "../pages/Dashboard/User/Balance";
+import TransactionUser from "../pages/Dashboard/User/TransactionUser";
+import AgentBalance from "../pages/Dashboard/Agent/AgentBalance";
+import TransactionAgent from "../pages/Dashboard/Agent/TransactionAgent";
+import MoneyRequest from "../pages/Dashboard/Agent/MoneyRequest";
+import WelcomeDashboard from "../pages/Dashboard/WelcomeDashboard";
 
 
 export const router = createBrowserRouter([
@@ -23,39 +27,58 @@ export const router = createBrowserRouter([
     // admin route
     {
       path:"dashboard",
-      element:<Private><Dashboard></Dashboard></Private>,
+      element:<Dashboard></Dashboard>,
       errorElement:<Error></Error>,
       children:[
         // admin Routes
         {
+          path:"dashboard",
+          element:<WelcomeDashboard></WelcomeDashboard>
+
+        },
+        {
           path:"acceptRequest",
-          element:<AcceptRequest></AcceptRequest>
+          element:<Private><AcceptRequest></AcceptRequest></Private>
           
         },
         {
-          path:"transaction",
-          element:<TransactionList></TransactionList>
+          path:"transactionList",
+          element:<Private><TransactionList></TransactionList></Private>
         },
         // user route
         {
           path:"sendMoney",
-          element:<SendMoney></SendMoney>
+          element:<Private><SendMoney></SendMoney></Private>
         },
         {
           path:"cashOut",
-          element:<CashOut></CashOut>
+          element:<Private><CashOut></CashOut></Private>
         },
         {
           path:"cashIn",
-          element:<CashIn></CashIn>
+          element:<Private><CashIn></CashIn></Private>
         },
         {
           path:"transaction",
-          element:<Transaction></Transaction>
+          element:<Private><TransactionUser></TransactionUser></Private>
         },
         {
           path:"balance",
-          element:<Balance></Balance>
+          element:<Private><Balance></Balance></Private>
+        },
+        // agent Router
+
+        {
+          path:"agentBalance",
+          element:<AgentBalance></AgentBalance>
+        },
+        {
+          path:"transactionAgent",
+          element:<TransactionAgent></TransactionAgent>
+        },
+        {
+          path:"moneyRequest",
+          element:<MoneyRequest></MoneyRequest>
         }
       ]
 

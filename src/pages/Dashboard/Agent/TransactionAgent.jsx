@@ -1,35 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import React from 'react';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import useRole from '../../../hooks/useRole';
+import { Toaster } from 'react-hot-toast';
 
-
-const TransactionList = () => {
-
+const TransactionAgent = () => {
     const axiosSecure=useAxiosSecure()
 
+    const {person}=useRole()
+
     const {data,isLoading}=useQuery({
-        queryKey:["usersForAdmin"],
+        queryKey:["TransactionAgent"],
         queryFn:async()=>{
 
-            const res = await axiosSecure.get(`/transactionList`)
+            const res = await axiosSecure.get(`/transactionAgent?mobile=${person.mobile}`)
 
             return res.data
         }
     })
 
-
-    if(isLoading){
-        return <div className="min-h-screen flex justify-center items-center">
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
+    console.log(data)
 
 
 
 
     return (
         <div className="p-5">
-
-            <h1 className="flex justify-center my-5 text-3xl font-semibold">Transaction List</h1>
+        <Toaster></Toaster>
 
 
         <div className="overflow-auto rounded-lg shadow-xl mt-10">
@@ -41,6 +38,7 @@ const TransactionList = () => {
     <th className="p-3 text-sm font-semibold tracking-wide text-left">Receiver</th> 
     <th className="p-3 text-sm font-semibold tracking-wide text-left">Amount</th> 
     <th className="p-3 text-sm font-semibold tracking-wide text-left">Date</th> 
+    <th className="p-3 text-sm font-semibold tracking-wide text-left">Type</th> 
     <th className="p-3 text-sm font-semibold tracking-wide text-left">Status</th> 
    
   </tr>
@@ -54,6 +52,7 @@ const TransactionList = () => {
         <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{item.receiver}</td> 
         <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{item.amount}</td> 
         <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{item.date}</td>
+        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{item.type}</td>
         <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{item.status}</td>
        
        
@@ -67,4 +66,4 @@ const TransactionList = () => {
     );
 };
 
-export default TransactionList;
+export default TransactionAgent;

@@ -1,35 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import React from 'react';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import useRole from '../../../hooks/useRole';
+import { Toaster } from 'react-hot-toast';
 
-
-const TransactionList = () => {
-
+const TransactionUser = () => {
     const axiosSecure=useAxiosSecure()
 
+    const {person}=useRole()
+
     const {data,isLoading}=useQuery({
-        queryKey:["usersForAdmin"],
+        queryKey:["users"],
         queryFn:async()=>{
 
-            const res = await axiosSecure.get(`/transactionList`)
+            const res = await axiosSecure.get(`/transaction/${person.email}`)
 
             return res.data
         }
     })
 
-
-    if(isLoading){
-        return <div className="min-h-screen flex justify-center items-center">
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
-
-
-
+   
 
     return (
         <div className="p-5">
-
-            <h1 className="flex justify-center my-5 text-3xl font-semibold">Transaction List</h1>
+        <Toaster></Toaster>
 
 
         <div className="overflow-auto rounded-lg shadow-xl mt-10">
@@ -67,4 +61,4 @@ const TransactionList = () => {
     );
 };
 
-export default TransactionList;
+export default TransactionUser;

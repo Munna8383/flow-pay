@@ -4,11 +4,24 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import useRole from "../../hooks/useRole";
 
 
-const Dashboard = () => {
+const Dashboard =() => {
 
     const navigate = useNavigate()
 
-    const {person,loading}=useRole()
+    const {person,loading}= useRole()
+
+
+    const handleReturn=()=>{
+
+      localStorage.removeItem("email")
+      localStorage.removeItem("access-token")
+        navigate("/")
+
+
+
+    }
+
+
 
     if(loading){
 
@@ -17,14 +30,18 @@ const Dashboard = () => {
     }
 
     const handleSignOut=()=>{
+      localStorage.removeItem("email")
+      localStorage.removeItem("access-token")
         navigate("/")
     }
 
     if(person?.role==="noRule"){
 
-        return   <div className="flex justify-center items-center min-h-screen text-2xl font-semibold text-center space-y-5">
-          <h1>Request Pending!</h1>
-          <h1>Wait for admin to accept</h1>
+        return   <div className="flex flex-col gap-5 justify-center items-center min-h-screen">
+          <h1 className="text-xl font-bold">Request Pending!</h1>
+          <h1 className="text-xl font-bold">Wait for Admin to Accept</h1>
+          <button onClick={handleReturn} className="btn btn-outline">Return</button>
+         
           </div>
     }
 
@@ -38,7 +55,7 @@ const Dashboard = () => {
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content">
     {/* Page content here */}
-    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
+    <label htmlFor="my-drawer-2" className="btn btn-outline drawer-button lg:hidden">
     <MdMenu />
     </label>
   </div>
@@ -64,7 +81,7 @@ const Dashboard = () => {
             person?.role==="admin" &&  <ul className="menu space-y-3 ">
             {/* Sidebar content here */}
             <li><NavLink to={"/dashboard/acceptRequest"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Accept Request</NavLink></li>
-            <li><NavLink to={"/dashboard/transaction"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Transaction List</NavLink></li>
+            <li><NavLink to={"/dashboard/transactionList"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Transaction List</NavLink></li>
 
           
           </ul>
@@ -81,6 +98,17 @@ const Dashboard = () => {
 
           
           </ul>
+        }
+
+        {
+          person?.role==="agent" && <ul className="menu space-y-3">
+          {/* Sidebar content here */}
+          <li><NavLink to={"/dashboard/agentBalance"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Agent Balance</NavLink></li>
+          <li><NavLink to={"/dashboard/moneyRequest"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Money Request</NavLink></li>
+          <li><NavLink to={"/dashboard/transactionAgent"} className={({isActive})=>isActive?"font-bold  text-white border-b-2 border-white":"font-bold text-white"}>Transaction</NavLink></li>
+
+        
+        </ul>
         }
     
 

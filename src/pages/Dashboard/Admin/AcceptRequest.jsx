@@ -50,7 +50,6 @@ const AcceptRequest = () => {
     return (
         <div className="p-5">
 
-            <h1>Accept Request</h1>
             <Toaster></Toaster>
 
 

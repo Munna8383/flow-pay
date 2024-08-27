@@ -14,6 +14,8 @@ const SendMoney = () => {
 
     e.preventDefault()
 
+    const pin = e.target.pin.value
+
     let amount = parseInt( e.target.amount.value)
     const receiver = e.target.receiver.value
     const date  =moment(new Date()).format("MMM Do YY")
@@ -41,7 +43,7 @@ const SendMoney = () => {
         amount = amount+5
     }
 
-     const data = {amount,receiver,date,name,mobile,email,role}
+     const data = {amount,receiver,date,name,mobile,email,role,pin}
 
 
 
@@ -77,6 +79,7 @@ const SendMoney = () => {
                     <form onSubmit={handleSendMoney} className="space-y-3">
                     <input type="number" placeholder="Receiver Number" name="receiver" className="input input-bordered  text-center w-full" />
                     <input type="number" placeholder="Amount" name="amount" className="input input-bordered  text-center w-full" />
+                    <input type="number" placeholder="PIN" name="pin" className="input input-bordered  text-center w-full" />
                     <br />
                     <button type="submit" className="btn btn-accent w-full text-white">Send</button>
                     </form>
